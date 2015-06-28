@@ -1,7 +1,5 @@
 #Hitler.py
 """
-Sample line change. 
-
 This is a bot created to comment on anything of a users
 posts and post a particular reply
 """
