@@ -1,5 +1,5 @@
 #Hitler.py
-"""
+"""last_submission
 This is a bot created to comment on anything of a users
 posts and post a particular reply
 """
@@ -88,6 +88,8 @@ end_comment = last_comment(user)
 should_run = True
 down_count = 0
 reply_count = 0
+
+#throw a try-catch in here
 while True:
 	new_comms = get_new_comments(user, end_comment)
 	if (len(new_comms) > 0):
