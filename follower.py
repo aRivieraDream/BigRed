@@ -1,12 +1,13 @@
 #Hitler.py
-"""last_submission
-This is a bot created to comment on anything of a users
+"""
+This is a reddit bot created to comment on any of a users
 posts and post a particular reply
 """
 import time 
 import praw
 import random
-r = praw.Reddit('TheSpellingAsshole Reply')
+import sys
+r = praw.Reddit('TheSpellingAsshole Replier')
 
 
 def last_comment(user):
@@ -81,39 +82,58 @@ def prune_comments(comm):
 	return reply, should_reply
 
 
-user = r.get_redditor("TheSpellingAsshole")
-r.login()
-end_comment = last_comment(user)
 
-should_run = True
-down_count = 0
-reply_count = 0
 
-#throw a try-catch in here
-while True:
-	new_comms = get_new_comments(user, end_comment)
-	if (len(new_comms) > 0):
-		end_comment = new_comms[0] #this should be most recent comment
-		#if it's not, order list with oldest first and take last 
-		#element in for loop
+def __main__():
+	user = r.get_redditor("TheSpellingAsshole")
+	asdferror
+	r.login()
+	end_comment = last_comment(user)
 
-	for comm in new_comms:
-		should_vote = (random.randrange(4) > 0)
-		if should_vote:
-			comm.downvote()
-			down_count = down_count + 1
-		reply, should_reply = prune_comments(comm)
-		print reply, should_reply
-		if should_reply:
-			post_reply(comm, reply) #requires logged in user
-			reply_count = reply_count + 1
-	print time.ctime()
-	print '%d replies, %d downvotes...sleeping for 10 minutes' % (reply_count, down_count)
+	should_run = True
+	down_count = 0
+	reply_count = 0
 
-	time.sleep(600)
-	#user_reply = raw_input('Would you like to test again? (Y/N): ')
-	#user_reply = user_reply.lower()
-	#should_run = user_reply.startswith('y')
+	while True:
+		new_comms = get_new_comments(user, end_comment)
+		if (len(new_comms) > 0):
+			end_comment = new_comms[0] #this should be most recent comment
+			#if it's not, order list with oldest first and take last 
+			#element in for loop
+
+		for comm in new_comms:
+			should_vote = (random.randrange(4) > 0)
+			if should_vote:
+				comm.downvote()
+				down_count = down_count + 1
+			reply, should_reply = prune_comments(comm)
+			print reply, should_reply
+			if should_reply:
+				try:
+					post_reply(comm, reply) #requires logged in user
+					reply_count = reply_count + 1
+				except (ClientException, APIException), e:
+					print "Print error occuring at " + time.ctime()
+					print type(e)
+					print e
+				
+		print time.ctime()
+		print '%d replies, %d downvotes...sleeping for 10 minutes' % (reply_count, down_count)
+
+		time.sleep(600)
+		5 / 0
+		#user_reply = raw_input('Would you like to test again? (Y/N): ')
+		#user_reply = user_reply.lower()
+		#should_run = user_reply.startswith('y')
+
+try:
+	error_file_name = 'FollowerErrors/Error File Report: ' + time.ctime() + '.txt'
+	error_file = open(error_file_name, 'a')
+	__main__()
+except Exception, e:
+	error_file.append('Program criical error at ' + time.ctime())
+	error_file.append(type(e))
+	error_file.append()
 
 
 
