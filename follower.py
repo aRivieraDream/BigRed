@@ -84,8 +84,13 @@ def prune_comments(comm):
 
 
 
-def __main__():
+def stuff():
+	print 'Starting __main__'
 	user = r.get_redditor("TheSpellingAsshole")
+	print """
+	This program requires that there is an output directory
+	called FollwerErrors. 
+	"""
 	asdferror
 	r.login()
 	end_comment = last_comment(user)
@@ -121,7 +126,7 @@ def __main__():
 		print '%d replies, %d downvotes...sleeping for 10 minutes' % (reply_count, down_count)
 
 		time.sleep(600)
-		5 / 0
+		
 		#user_reply = raw_input('Would you like to test again? (Y/N): ')
 		#user_reply = user_reply.lower()
 		#should_run = user_reply.startswith('y')
@@ -129,11 +134,11 @@ def __main__():
 try:
 	error_file_name = 'FollowerErrors/Error File Report: ' + time.ctime() + '.txt'
 	error_file = open(error_file_name, 'a')
-	__main__()
+	stuff()
 except Exception, e:
-	error_file.append('Program criical error at ' + time.ctime())
-	error_file.append(type(e))
-	error_file.append()
+	error_file.write('Program criical error at ' + time.ctime())
+	error_file.write(type(e))
+	error_file.write()
 
 
 
