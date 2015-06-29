@@ -1,0 +1,27 @@
+
+
+*************************
+*************************
+
+Begin log for program initialized on 
+****NEW EXCEPTION THROWN****
+Program critical error at Mon Jun 29 13:23:31 2015
+
+Traceback (most recent call last):
+  File "BigRed.py", line 189, in <module>
+    __main__()
+  File "BigRed.py", line 169, in __main__
+    except (ClientException, APIException):
+NameError: global name 'ClientException' is not defined
+****END OF EXCEPTION****
+
+****NEW EXCEPTION THROWN****
+Program critical error at Mon Jun 29 13:26:48 2015
+
+Traceback (most recent call last):
+  File "BigRed.py", line 190, in <module>
+    except Exception:
+  File "BigRed.py", line 169, in __main__
+    except (ClientException, APIException):
+NameError: global name 'ClientException' is not defined
+****END OF EXCEPTION****
