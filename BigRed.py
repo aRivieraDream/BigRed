@@ -14,6 +14,8 @@ error_file_name = 'BigRedErrors.log'
 attack_log = 'BigRedAttacks.log' #tracks actions
 #name of the program that you give to reddit
 r = praw.Reddit('TheSpellingAsshole Replier') 
+#seconds to sleep between calls
+delay = 300
 
 def last_comment(user):
 	"""Get last comment for a particular user."""
@@ -40,7 +42,6 @@ def get_new_comments(user, last):
 	while recent != last:
 		new_comments.append(recent)
 		recent = comments.next()
-	#print 'New comments: ', new_comments
 	return new_comments
 
 def get_new_subs(user, last):
@@ -55,7 +56,6 @@ def get_new_subs(user, last):
 	while recent != last:
 		new_subs.append(recent)
 		recent = subs.next()
-	#print 'New Subs: ', new_subs
 	return new_subs
 
 def post_comment(sub, reply):
@@ -111,7 +111,7 @@ def handle(output):
 	error_file = open(output, 'a')
 	error_file.write('\n****NEW EXCEPTION THROWN****\n')
 
-	print 'Printing error to ' + output
+	#print 'Printing error to ' + output
 	#Timestamp	
 	error_file.write('Program critical error at ' + time.ctime())
 	error_file.write('\n\n')
@@ -121,12 +121,11 @@ def handle(output):
 
 def log_start(error_file_name):
 	"""Open, timestamp and separate this portion in log file."""
-	error_file = open(error_file_name, 'a')
-	ts = time.ctime()
+	error_file = open(error_file_name, 'w')
 	error_file.write('\n\n*************************')
 	error_file.write('\n*************************\n\n')
 	error_file.write('Begin log for program initialized '
-					'on ' + ts)
+					'on ')
 	error_file.close() 
 
 def record_attack(attack_log, text):
@@ -177,12 +176,11 @@ def __main__():
 		#attack_log.write(time.ctime()) 
 		#attack_log.write('%d replies, %d downvotes...sleeping for 10 minutes' % 
 		#	  (reply_count, down_count))
-		time.sleep(60)
+		time.sleep(delay)
 		#some stuff for getting going:
 		#user_reply = raw_input('Would you like to test again? (Y/N): ')
 		#user_reply = user_reply.lower()
 		#should_run = user_reply.startswith('y')
-
 
 try:
 	print 'Entering initial setup...'
@@ -193,6 +191,6 @@ except Exception:
 	exception = traceback.format_exc()
 	handle(error_file_name)
 finally:
-	#convert this to recall a new instance of BigRed
-	attack_log.write('stuff from the finally block') 
+	#convert this to recall a new instance of BigRed (after OAuth)
+	record_attack(attack_log, 'stuff from the finally block') 
 

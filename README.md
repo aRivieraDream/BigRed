@@ -8,9 +8,27 @@ Right now BigRed doesn't do very much. In fact, all he does is follow around /u/
 <h1>Setup</h1>
 - Clone the project into your local repository or onto an EC2 instance 
 - Unless you want to chase down /u/TheSpellingAsshole with me you'll probably want to adjust some of the actions on comments. 
-- run `$python BigRed.py`
+- run `$ python BigRed.py`
 	- You must be in the same directory as BigRed.py
 - you will be prompted for a reddit username and password from the command line
+- Keeping process running in the background even when bash closes
+	A) start program
+		`$ python BigRed.py`
+	B) pause program
+		`$ ctrl + z`
+	C) run in background
+		`$ bg`
+	D) keep it alive when window dies
+		`$ disown -h %1`
+	E) good to go :)
+		`$ exit`
+	F) Kill it because you no longer have control
+		`$ top` gets the process id (PID)
+		`$ kill <pid>`
+
+	NOTE: see http://www.kossboss.com/linux---move-running-to-process-nohup you might want an alternative process recovery system like reptyr to handle this for you when you log out of ssh
+	KILLING PROCESSES: https://www.digitalocean.com/community/tutorials/how-to-use-ps-kill-and-nice-to-manage-processes-in-linux
+	Further Reading: http://teaching.idallen.com/cst8207/13w/notes/notes/600_processes_and_jobs.html
 
 
 <h2>Potential Features:</h2>
@@ -20,8 +38,11 @@ Right now BigRed doesn't do very much. In fact, all he does is follow around /u/
 
 
 <h2>Known issues with BigRed(dit):</h2>
-- Potential to continuously throw errors if user is logged out.
-- Issue with deleted comments--not quite sure what the issue is. 
+- Disown doesn't track comment updates from prior disown
+- Deleted comments will likely throw an error
+	- Potential infinite loop if handle(output)
+- Time isn't actually local time of instance
+	- For ref: http://stackoverflow.com/questions/8809765/need-to-convert-utc-aws-ec2-to-pst-in-python
 
 
 <h2>Proposed improvements (in no order):</h2>
@@ -32,4 +53,4 @@ Right now BigRed doesn't do very much. In fact, all he does is follow around /u/
 - Needs build out of targets. 
 - More dynamic voting/comments threshholds.
 - Error handling: (login issues)
-- Add an actions log
+- --Add an actions log--
