@@ -172,5 +172,6 @@ except Exception:
 	exception = traceback.format_exc()
 	handle(error_file_name)
 finally:
-	print 'test'
+	#convert this to recall a new instance of BigRed
+	print 'stuff'
 
