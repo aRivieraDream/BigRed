@@ -1,0 +1,24 @@
+
+
+*************************
+
+*************************
+
+
+****NEW EXCEPTION THROWN****
+Program critical error at Sun Jun 28 18:01:58 2015
+
+Traceback (most recent call last):
+  File "/Users/MacBookAir/Dev/python/Reddit/BigRed/follower.py", line 146, in <module>
+    log_start()
+  File "/Users/MacBookAir/Dev/python/Reddit/BigRed/follower.py", line 102, in log_start
+    error_file.wrtie('Begin error log for program initialized '
+AttributeError: 'file' object has no attribute 'wrtie'
+****END OF EXCEPTION****
+
+
+
+*************************
+
+*************************
+

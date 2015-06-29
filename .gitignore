@@ -1,0 +1,5 @@
+#Files to ignore
+*.log
+
+#Files to keep
+!BigRedErrors.log

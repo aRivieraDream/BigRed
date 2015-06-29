@@ -1,13 +1,14 @@
 #Hitler.py
 """
 This is a reddit bot created to comment on any of a users
-posts and post a particular reply
+posts and post a particular reply.
 """
-import time 
-import praw
-import random
-import sys
+#need sys? <--was prolly for log folder creation
+import praw, time, random, traceback
+
 r = praw.Reddit('TheSpellingAsshole Replier')
+error_file_name = 'BigRedErrors.log'
+attack_log = 'BigRedAttacks.log'
 
 
 def last_comment(user):
@@ -81,30 +82,40 @@ def prune_comments(comm):
 		should_reply = False
 	return reply, should_reply
 
+def handle(output):
+	e = traceback.format_exc()
+	error_file = open(output, 'a')
+	error_file.write('\n****NEW EXCEPTION THROWN****\n')
 
+	print 'Printing error to ' + output
+	#Timestamp	
+	error_file.write('Program critical error at ' + time.ctime())
+	error_file.write('\n\n')
+	error_file.write(e)
+	error_file.write('****END OF EXCEPTION****\n\n')
 
+def log_start():
+	error_file = open(error_file_name, 'a')
+	ts = time.ctime()
+	error_file.write('\n\n*************************')
+	error_file.write('\n\n*************************\n\n')
+	error_file.wrtie('Begin error log for program initialized '
+		'on ' + ts)
 
-def stuff():
+def __main__():
 	print 'Starting __main__'
 	user = r.get_redditor("TheSpellingAsshole")
-	print """
-	This program requires that there is an output directory
-	called FollwerErrors. 
-	"""
-	asdferror
 	r.login()
 	end_comment = last_comment(user)
-
 	should_run = True
 	down_count = 0
 	reply_count = 0
 
-	while True:
+	while should_run:
 		new_comms = get_new_comments(user, end_comment)
+		#get most recent comment if any
 		if (len(new_comms) > 0):
-			end_comment = new_comms[0] #this should be most recent comment
-			#if it's not, order list with oldest first and take last 
-			#element in for loop
+			end_comment = new_comms[0] 
 
 		for comm in new_comms:
 			should_vote = (random.randrange(4) > 0)
@@ -117,30 +128,26 @@ def stuff():
 				try:
 					post_reply(comm, reply) #requires logged in user
 					reply_count = reply_count + 1
-				except (ClientException, APIException), e:
-					print "Print error occuring at " + time.ctime()
-					print type(e)
-					print e
+				except (ClientException, APIException):
+					#hoping this doesn't allow password issues to persist
+					handle(error_file_name)
 				
 		print time.ctime()
 		print '%d replies, %d downvotes...sleeping for 10 minutes' % (reply_count, down_count)
 
 		time.sleep(600)
-		
+
+		#some stuff for getting going:
 		#user_reply = raw_input('Would you like to test again? (Y/N): ')
 		#user_reply = user_reply.lower()
 		#should_run = user_reply.startswith('y')
 
 try:
-	error_file_name = 'FollowerErrors/Error File Report: ' + time.ctime() + '.txt'
-	error_file = open(error_file_name, 'a')
-	stuff()
-except Exception, e:
-	error_file.write('Program criical error at ' + time.ctime())
-	error_file.write(type(e))
-	error_file.write()
-
-
-
-
+	log_start()
+	__main__()
+except Exception:
+	exception = traceback.format_exc()
+	handle(error_file_name)
+finally:
+	print 'test'
 
