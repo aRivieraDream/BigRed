@@ -22,3 +22,48 @@ AttributeError: 'file' object has no attribute 'wrtie'
 
 *************************
 
+
+****NEW EXCEPTION THROWN****
+Program critical error at Sun Jun 28 19:13:31 2015
+
+Traceback (most recent call last):
+  File "/Users/MacBookAir/Dev/python/Reddit/BigRed/BigRed.py", line 170, in <module>
+    log_start(error_file_name)
+  File "/Users/MacBookAir/Dev/python/Reddit/BigRed/BigRed.py", line 125, in log_start
+    error_file.wrtie('Begin log for program initialized '
+AttributeError: 'file' object has no attribute 'wrtie'
+****END OF EXCEPTION****
+
+
+
+*************************
+
+*************************
+
+
+
+*************************
+*************************
+
+Begin log for program initialized on Sun Jun 28 19:16:55 2015
+****NEW EXCEPTION THROWN****
+Program critical error at Sun Jun 28 19:16:55 2015
+
+Traceback (most recent call last):
+  File "/Users/MacBookAir/Dev/python/Reddit/BigRed/BigRed.py", line 171, in <module>
+    __main__()
+  File "/Users/MacBookAir/Dev/python/Reddit/BigRed/BigRed.py", line 131, in __main__
+    r.login()
+  File "/Library/Python/2.7/site-packages/praw/decorators.py", line 88, in wrapped
+    return function(self, *args, **kwargs)
+  File "/Library/Python/2.7/site-packages/praw/__init__.py", line 1316, in login
+    pswd = getpass.getpass('Password for %s: ' % user)
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/getpass.py", line 83, in unix_getpass
+    passwd = fallback_getpass(prompt, stream)
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/getpass.py", line 118, in fallback_getpass
+    return _raw_input(prompt, stream)
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/getpass.py", line 135, in _raw_input
+    raise EOFError
+EOFError
+****END OF EXCEPTION****
+

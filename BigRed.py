@@ -114,15 +114,15 @@ def handle(output):
 	error_file.write('Program critical error at ' + time.ctime())
 	error_file.write('\n\n')
 	error_file.write(e)
-	error_file.write('****END OF EXCEPTION****\n\n')
+	error_file.write('****END OF EXCEPTION****\n')
 
 def log_start(error_file_name):
 	"""Timestamp and separate this portion in log file."""
 	error_file = open(error_file_name, 'a')
 	ts = time.ctime()
 	error_file.write('\n\n*************************')
-	error_file.write('\n\n*************************\n\n')
-	error_file.wrtie('Begin log for program initialized '
+	error_file.write('\n*************************\n\n')
+	error_file.write('Begin log for program initialized '
 					'on ' + ts)
 
 def __main__():
