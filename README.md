@@ -9,7 +9,9 @@ Right now BigRed doesn't do very much. In fact, all he does is follow around /u/
 - Clone the project into your local repository or onto an EC2 instance 
 - Unless you want to chase down /u/TheSpellingAsshole with me you'll probably want to adjust some of the actions on comments. 
 - run 	
+
 	$python BigRed.py
+	
 	- You must be in the same directory as BigRed.py
 - you will be prompted for a reddit username and password from the command line
 
