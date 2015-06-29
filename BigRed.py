@@ -1,4 +1,4 @@
-#Hitler.py
+#BigRed.py
 """
 This is a reddit bot created to comment on any of a users
 posts and post a particular reply.
@@ -12,9 +12,8 @@ import traceback
 
 error_file_name = 'BigRedErrors.log'
 attack_log = 'BigRedAttacks.log' #tracks actions
-
-r = praw.Reddit('TheSpellingAsshole Replier')
-
+#name of program reddit sees
+r = praw.Reddit('TheSpellingAsshole Replier') 
 
 def last_comment(user):
 	"""Get last comment for a particular user."""
