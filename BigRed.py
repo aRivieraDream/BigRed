@@ -117,6 +117,7 @@ def handle(output):
 	error_file.write('\n\n')
 	error_file.write(e)
 	error_file.write('****END OF EXCEPTION****\n')
+	error_file.close()
 
 def log_start(error_file_name):
 	"""Open, timestamp and separate this portion in log file."""
@@ -176,7 +177,7 @@ def __main__():
 		#attack_log.write(time.ctime()) 
 		#attack_log.write('%d replies, %d downvotes...sleeping for 10 minutes' % 
 		#	  (reply_count, down_count))
-		time.sleep(600)
+		time.sleep(60)
 		#some stuff for getting going:
 		#user_reply = raw_input('Would you like to test again? (Y/N): ')
 		#user_reply = user_reply.lower()
