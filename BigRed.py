@@ -14,14 +14,15 @@ error_file_name = 'BigRedErrors.log'
 attack_log = 'BigRedAttacks.log' #tracks actions
 #name of the program that you give to reddit
 r = praw.Reddit('TheSpellingAsshole Replier') 
-#seconds to sleep between calls
+#seconds to sleep between calls consider passing in
 delay = 300
 
 def last_comment(user):
 	"""Get last comment for a particular user."""
 	comments = user.get_comments()
 	last = comments.next()
-	print 'last comment from user was: ' + last.body
+	# may want to consider passing in 
+	#print 'last comment from user was: ' + last.body
 	return last
 
 def last_submission(user):
