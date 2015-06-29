@@ -73,3 +73,24 @@ EOFError
 *************************
 
 Begin log for program initialized on Sun Jun 28 19:25:57 2015
+
+*************************
+*************************
+
+Begin log for program initialized on Sun Jun 28 21:04:34 2015
+****NEW EXCEPTION THROWN****
+Program critical error at Sun Jun 28 21:04:50 2015
+
+Traceback (most recent call last):
+  File "bigred.py", line 172, in <module>
+    __main__()
+  File "bigred.py", line 158, in __main__
+    attack_log.write(time.ctime())
+AttributeError: 'str' object has no attribute 'write'
+****END OF EXCEPTION****
+
+
+*************************
+*************************
+
+Begin log for program initialized on Mon Jun 29 00:08:15 2015

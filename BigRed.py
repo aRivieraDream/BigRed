@@ -1,4 +1,4 @@
-#BigRed.py
+#BigRed(dit).py
 """
 This is a reddit bot created to comment on any of a users
 posts and post a particular reply.
@@ -12,7 +12,7 @@ import traceback
 
 error_file_name = 'BigRedErrors.log'
 attack_log = 'BigRedAttacks.log' #tracks actions
-#name of program reddit sees
+#name of the program that you give to reddit
 r = praw.Reddit('TheSpellingAsshole Replier') 
 
 def last_comment(user):
@@ -26,7 +26,6 @@ def last_submission(user):
 	"""Get last submission for user object."""
 	subs = user.get_submitted()
 	last = subs.next()
-	print last
 	return last
 
 def get_new_comments(user, last):
@@ -84,7 +83,11 @@ def count_parents(comment_id, count):
 	return count
 
 def prune_comments(comm):
-	"""Trim comment based on arbitrary criteria"""
+	"""Return a tuple (str, boolean)
+	(reply to comm, True if comm is spell correction)
+
+	comm -- praw comment to reply to
+	"""
 	comment_text = comm.body
 	reply = ''
 
@@ -116,13 +119,20 @@ def handle(output):
 	error_file.write('****END OF EXCEPTION****\n')
 
 def log_start(error_file_name):
-	"""Timestamp and separate this portion in log file."""
+	"""Open, timestamp and separate this portion in log file."""
 	error_file = open(error_file_name, 'a')
 	ts = time.ctime()
 	error_file.write('\n\n*************************')
 	error_file.write('\n*************************\n\n')
 	error_file.write('Begin log for program initialized '
 					'on ' + ts)
+	error_file.close() 
+
+def record_attack(attack_log, text):
+	"""Write text to end of attack_log"""
+	attack_file = open(attack_log, 'a')
+	attack_file.write(text)
+	attack_file.close()
 
 def __main__():
 	print 'Starting __main__'
@@ -133,32 +143,40 @@ def __main__():
 	down_count = 0
 	reply_count = 0
 
-	while should_run:
+	while should_run: #this should change based on operation
+		#prep output
+		attack_output = ''
+		#get all new comments
 		new_comms = get_new_comments(user, end_comment)
 		#get most recent comment if any
 		if (len(new_comms) > 0):
 			end_comment = new_comms[0] 
-
+		#go through new comments
 		for comm in new_comms:
+			#75% liklihood to downvote
 			should_vote = (random.randrange(4) > 0)
 			if should_vote:
 				comm.downvote()
 				down_count = down_count + 1
+			#see if post was spelling correction
 			reply, should_reply = prune_comments(comm)
-			print reply, should_reply
 			if should_reply:
 				try:
 					post_reply(comm, reply) #requires logged in user
 					reply_count = reply_count + 1
+					#record reply for each comment session
+					attack_output = attack_output + reply + '\n'
 				except (ClientException, APIException):
 					#hoping this doesn't allow password issues to persist
 					handle(error_file_name)
-				
-		print time.ctime()
-		print '%d replies, %d downvotes...sleeping for 10 minutes' % (reply_count, down_count)
-
+		attack_output = attack_output + time.ctime() + '\n'
+		attack_output = attack_output + ('%d replies, %d downvotes. \n\n' % 
+			  (reply_count, down_count))
+		record_attack(attack_log, attack_output)
+		#attack_log.write(time.ctime()) 
+		#attack_log.write('%d replies, %d downvotes...sleeping for 10 minutes' % 
+		#	  (reply_count, down_count))
 		time.sleep(600)
-
 		#some stuff for getting going:
 		#user_reply = raw_input('Would you like to test again? (Y/N): ')
 		#user_reply = user_reply.lower()
@@ -166,12 +184,14 @@ def __main__():
 
 
 try:
+	print 'Entering initial setup...'
 	log_start(error_file_name)
+	log_start(attack_log)
 	__main__()
 except Exception:
 	exception = traceback.format_exc()
 	handle(error_file_name)
 finally:
 	#convert this to recall a new instance of BigRed
-	print 'stuff'
+	attack_log.write('stuff from the finally block') 
 
