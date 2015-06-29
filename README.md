@@ -6,24 +6,30 @@ Right now BigRed doesn't do very much. In fact, all he does is follow around /u/
 
 
 <h1>Setup</h1>
+- Clone the project into your local repository or onto an EC2 instance 
+- Unless you want to chase down /u/TheSpellingAsshole with me you'll probably want to adjust some of the actions on comments. 
+- run 	$python BigRed.py
+	- You must be in the same directory as BigRed.py
+- you will be prompted for a reddit username and password from the command line
 
 
-<h1>Potential Features:</h1>
-	<li>Get emails of pms to BigRed</li>
-	<li>Set up BigRed with multiple user accounts</li>
-	<li>Notify user when a topic in their expertise is mentioned</li>
-	<li></li>
+<h2>Potential Features:</h2>
+	- Get emails of pms to BigRed
+	- Set up BigRed with multiple user accounts
+	- Notify user when a topic in their expertise is mentioned
 
 
-Known issues with BigRed(dit):
-	1. Potential to continuously throw errors if user is logged out.
-	2. Issue with deleted comments--not quite sure what the issue is. 
+<h2>Known issues with BigRed(dit):</h2>
+	- Potential to continuously throw errors if user is logged out.
+	- Issue with deleted comments--not quite sure what the issue is. 
 
-Proposed improvements (in no order):
-	1. Needs implementation of OAuth in order to have login info persist beyond August 3. 
-	2. Needs build out of error handling. 
-	3. Needs a better interface for operating multiple accounts
-	4. Needs build out of reply mechanism (perhaps something just a little less basic.)
-	5. Needs build out of targets. 
-	6. More dynamic voting/comments threshholds.
-	7. Automatic folder creation for error output dumps/handling errors better ;)
+
+<h2>Proposed improvements (in no order):</h2>
+	- Needs implementation of OAuth in order to have login info persist beyond August 3. 
+	- Needs build out of error handling. 
+	- Needs a better interface for operating multiple accounts
+	- Needs build out of reply mechanism (perhaps something just a little less basic.)
+	- Needs build out of targets. 
+	- More dynamic voting/comments threshholds.
+	- Error handling: (login issues)
+	- Add an actions log
