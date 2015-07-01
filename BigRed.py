@@ -167,10 +167,16 @@ def __main__():
 					reply_count = reply_count + 1
 					#record reply for each comment session
 					attack_output = attack_output + reply + '\n'
-					asdf #random exception
-				except (ClientException, APIException):
-					#hoping this doesn't allow password issues to persist
-					handle(error_file_name)
+				except requests.exceptions.HTTPError as err:
+			        if err.response.status_code in [502, 503, 504]:
+			            # these errors may only be temporary
+			            handle(error_file_name)
+			            pass
+			        else:
+			            # assume other errors are fatal
+			            #hoping this doesn't allow password issues to persist
+			            handle(error_file_name)
+			            should_run = False
 		#record time
 		attack_output = attack_output + time.ctime() + '\n'
 		#record hits
