@@ -1,6 +1,4 @@
 #Files to ignore
-*.log
+#*.log
 
 #Files to keep
-!BigRedErrors.log
-!BigRedAttacks.log
