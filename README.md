@@ -12,26 +12,16 @@ Right now BigRed doesn't do very much. In fact, all he does is follow around /u/
 `$ python BigRed.py`
 	- You must be in the same directory as BigRed.py
 - you will be prompted for a reddit username and password from the command line
-- Keeping process running in the background even when bash closes
-	- start program  
-		`$ python BigRed.py`
-	- pause program  
-		`$ ctrl + z`
-	- run in background  
-		`$ bg`
-	- keep it alive when window dies  
-		`$ disown -h %1`
-	- good to go :)  
-		`$ exit`
-	- Kill it because you no longer have control  
-		`$ top` gets the process id (PID)  
-		`$ kill <pid>`
-
-	**NOTE:**  
-	see http://www.kossboss.com/linux---move-running-to-process-nohup you might want an alternative process recovery system like reptyr to handle this for you when you log out of ssh
-	**KILLING PROCESSES:**  
-	https://www.digitalocean.com/community/tutorials/how-to-use-ps-kill-and-nice-to-manage-processes-in-linux
-	Further Reading: http://teaching.idallen.com/cst8207/13w/notes/notes/600_processes_and_jobs.html
+- To keep your process running while disconnected from ssh use screen
+	- Start session `$ screen`
+	- Detach `$ ctrl+a d`
+	- When reconnecting be sure to start a new session of screen
+	- Reattach `$ screen -r`
+	- For multiple screen sessions:
+		- List all screens available `$ screen -ls`
+		- Reattach particular screen `$ screen -r <first 4 numbers>`
+	- More info: http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/install-updates.html
+	- Also: http://www.tecmint.com/screen-command-examples-to-manage-linux-terminals/
 
 
 <h2>Potential Features:</h2>

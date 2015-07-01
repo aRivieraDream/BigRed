@@ -5,7 +5,7 @@ posts and post a particular reply.
 """
 #needs download
 import praw 
-
+#standard
 import time
 import random
 import traceback
@@ -136,9 +136,9 @@ def record_attack(attack_log, text):
 	attack_file.close()
 
 def __main__():
-	print 'Starting __main__'
+	print 'Starting __main__ \n'
+	print 'Feel free to disconnect from ssh if screen is running'
 	user = r.get_redditor("TheSpellingAsshole")
-	r.login()
 	end_comment = last_comment(user)
 	should_run = True
 	down_count = 0
@@ -167,10 +167,13 @@ def __main__():
 					reply_count = reply_count + 1
 					#record reply for each comment session
 					attack_output = attack_output + reply + '\n'
+					asdf #random exception
 				except (ClientException, APIException):
 					#hoping this doesn't allow password issues to persist
 					handle(error_file_name)
+		#record time
 		attack_output = attack_output + time.ctime() + '\n'
+		#record hits
 		attack_output = attack_output + ('%d replies, %d downvotes. \n\n' % 
 			  (reply_count, down_count))
 		record_attack(attack_log, attack_output)
@@ -184,11 +187,15 @@ def __main__():
 		#should_run = user_reply.startswith('y')
 
 try:
+	print 'Initializing BigRed 2.2'
 	print 'Entering initial setup...'
 	log_start(error_file_name)
 	log_start(attack_log)
+	#login to reddit with your u/n and password
+	r.login()
 	__main__()
 except Exception:
+	print 'exception in __main__'
 	exception = traceback.format_exc()
 	handle(error_file_name)
 finally:
