@@ -10,8 +10,8 @@ import time
 import random
 import traceback
 
-error_file_name = 'BigRedErrors.log'
-attack_log = 'BigRedAttacks.log' #tracks actions
+error_file_name = 'Errs.log'
+attack_log = 'Attacks.log' #tracks actions
 #name of the program that you give to reddit
 r = praw.Reddit('TheSpellingAsshole Replier') 
 #seconds to sleep between calls consider passing in
@@ -168,15 +168,14 @@ def __main__():
 					#record reply for each comment session
 					attack_output = attack_output + reply + '\n'
 				except requests.exceptions.HTTPError as err:
-			        if err.response.status_code in [502, 503, 504]:
-			            # these errors may only be temporary
-			            handle(error_file_name)
-			            pass
-			        else:
-			            # assume other errors are fatal
-			            #hoping this doesn't allow password issues to persist
-			            handle(error_file_name)
-			            should_run = False
+					if err.response.status_code in [502, 503, 504]:
+						#err may only be temp
+						handle(error_file_name)
+						pass
+					else:
+						#assume fatal error
+						handle(error_file_name)
+						should_run = False
 		#record time
 		attack_output = attack_output + time.ctime() + '\n'
 		#record hits
